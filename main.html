@@ -20,29 +20,30 @@
       padding: 30px 40px;
       border-radius: 8px;
       width: 350px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     h1 {
       margin-bottom: 20px;
     }
 
+    .field {
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
-    }
-
-    .remember {
-      display: flex;
-      align-items: center;
-      justify-content: start;
-      gap: 8px;
-      margin: 10px 0;
-      font-size: 14px;
+      padding: 8px;
+      font-size: 15px;
     }
 
     button,
@@ -75,23 +76,29 @@
   <form id="loginForm">
 
     <!-- Username -->
-    <input
-      type="text"
-      id="username"
-      placeholder="Username"
-    />
+    <div class="field">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        placeholder="Username"
+      />
+    </div>
 
     <!-- Password -->
-    <input
-      type="password"
-      id="password"
-      placeholder="Password"
-    />
+    <div class="field">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+      />
+    </div>
 
     <!-- Remember Me -->
-    <div class="remember">
+    <div class="field">
       <input type="checkbox" id="checkbox" />
-      <label for="checkbox">Remember me.</label>
+      <label for="checkbox">Remember me:</label>
     </div>
 
     <!-- Submit -->
@@ -103,7 +110,7 @@
 
   </form>
 
-  <!-- Existing User Button -->
+  <!-- Existing User -->
   <button id="existing">
     Login as existing user
   </button>
@@ -120,7 +127,7 @@
   const existingBtn = document.getElementById("existing");
 
 
-  // ✅ Check saved user on load
+  // ✅ Check saved data on load
   window.addEventListener("load", () => {
 
     const savedUser = localStorage.getItem("username");
@@ -133,7 +140,7 @@
   });
 
 
-  // ✅ Submit Form
+  // ✅ Submit
   form.addEventListener("submit", function (e) {
 
     e.preventDefault();
@@ -141,12 +148,11 @@
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-
-    // Show alert
+    // Alert
     alert(`Logged in as ${username}`);
 
 
-    // If Remember Me checked
+    // Remember Me checked
     if (checkbox.checked) {
 
       localStorage.setItem("username", username);
@@ -156,7 +162,7 @@
 
     }
 
-    // If not checked → clear storage
+    // Not checked → clear
     else {
 
       localStorage.removeItem("username");
@@ -169,7 +175,7 @@
   });
 
 
-  // ✅ Existing User Login
+  // ✅ Existing user login
   existingBtn.addEventListener("click", function () {
 
     const savedUser = localStorage.getItem("username");
