@@ -1,16 +1,186 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      width: 350px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 8px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    button,
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #existing {
+      display: none;
+      background: #222;
+      color: white;
+      border: none;
+    }
+
+  </style>
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+
+<div class="container">
+
+  <!-- Heading -->
+  <h1>Login Form</h1>
+
+  <!-- Form -->
+  <form id="loginForm">
+
+    <!-- Username -->
+    <input
+      type="text"
+      id="username"
+      placeholder="Username"
+    />
+
+    <!-- Password -->
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    />
+
+    <!-- Remember Me -->
+    <div class="remember">
+      <input type="checkbox" id="checkbox" />
+      <label for="checkbox">Remember me.</label>
+    </div>
+
+    <!-- Submit -->
+    <input
+      type="submit"
+      id="submit"
+      value="Submit"
+    />
+
+  </form>
+
+  <!-- Existing User Button -->
+  <button id="existing">
+    Login as existing user
+  </button>
+
+</div>
+
+
+<script>
+
+  const form = document.getElementById("loginForm");
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
+  const checkbox = document.getElementById("checkbox");
+  const existingBtn = document.getElementById("existing");
+
+
+  // ✅ Check saved user on load
+  window.addEventListener("load", () => {
+
+    const savedUser = localStorage.getItem("username");
+    const savedPass = localStorage.getItem("password");
+
+    if (savedUser && savedPass) {
+      existingBtn.style.display = "block";
+    }
+
+  });
+
+
+  // ✅ Submit Form
+  form.addEventListener("submit", function (e) {
+
+    e.preventDefault();
+
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+
+
+    // Show alert
+    alert(`Logged in as ${username}`);
+
+
+    // If Remember Me checked
+    if (checkbox.checked) {
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      existingBtn.style.display = "block";
+
+    }
+
+    // If not checked → clear storage
+    else {
+
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+
+      existingBtn.style.display = "none";
+
+    }
+
+  });
+
+
+  // ✅ Existing User Login
+  existingBtn.addEventListener("click", function () {
+
+    const savedUser = localStorage.getItem("username");
+
+    if (savedUser) {
+      alert(`Logged in as ${savedUser}`);
+    }
+
+  });
+
 </script>
 
 </body>
-
 </html>
